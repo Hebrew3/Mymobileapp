@@ -10,7 +10,6 @@ class Listitems extends StatefulWidget {
 }
 
 class _ListitemsState extends State<Listitems> {
-
   List<Cameras> cameras = [
     Cameras(
       name: 'Canon EOS R5',
@@ -38,16 +37,56 @@ class _ListitemsState extends State<Listitems> {
       price: 1299.99,
     ),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('BookMyShoot'),
+        title: const Text('BookMyShoot'),
       ),
-      body: Column(
-        children: cameras.map((camera){
-          return Itemcard(cameras: camera);
+      body: ListView(
+        children: cameras.map((camera) {
+          return ItemCard(camera: camera);
         }).toList(),
+      ),
+    );
+  }
+}
+
+class ItemCard extends StatelessWidget {
+  final Cameras camera;
+
+  const ItemCard({super.key, required this.camera});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.all(8.0),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              camera.name,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(camera.description),
+            const SizedBox(height: 8),
+            Text(
+              '\$${camera.price.toStringAsFixed(2)}',
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
