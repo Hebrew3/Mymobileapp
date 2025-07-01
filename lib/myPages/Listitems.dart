@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'Cameras.dart';
-
 class Listitems extends StatefulWidget {
   const Listitems({super.key});
 
@@ -43,11 +42,32 @@ class _ListitemsState extends State<Listitems> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('BookMyShoot'),
+        backgroundColor: Colors.deepPurple,
       ),
-      body: ListView(
-        children: cameras.map((camera) {
-          return ItemCard(camera: camera);
-        }).toList(),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.deepPurple,
+              Colors.purple,
+              Colors.purpleAccent,
+            ],
+          ),
+        ),
+        child: ListView(
+          children: cameras.map((camera) {
+            return ItemCard(camera: camera);
+          }).toList(),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/rentform');
+        },
+        child: const Icon(Icons.add),
+        backgroundColor: Colors.deepPurple,
       ),
     );
   }
@@ -62,6 +82,10 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(8.0),
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -78,11 +102,11 @@ class ItemCard extends StatelessWidget {
             Text(camera.description),
             const SizedBox(height: 8),
             Text(
-              '\$${camera.price.toStringAsFixed(2)}',
+              '₱${camera.price.toStringAsFixed(2)}',
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Colors.blue,
+                color: Colors.deepPurple,
               ),
             ),
           ],
